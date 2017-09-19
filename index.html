@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <h1>Musical note</h1>
+    </head>
+    <script src="scripts/main.js"></script>
+    <script type="text/javascript">
+        load();
+    </script>
+    <body>
+        <audio id="sound" preload="none" controls="none" style="display:none" >
+        </audio>
+        <div>
+            <input type="button" onclick="changeInstrumentBass()" value="BASS"/>
+            <input type="button" onclick="changeInstrumentGuitar()" value="GUITAR"/>
+            <input type="button" onclick="changeInstrumentPiano()" value="PIANO"/>
+        </div>
+        <div>
+            <input type="button" onclick="play()" value="PLAY"/>
+            <input type="button" onclick="autoPlay()" value="AUTO PLAY"/>
+            <input type="button" onclick="stop()" value="STOP"/>
+        </div>
+    </body>
+</html>
