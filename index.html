@@ -14,11 +14,25 @@
             <input type="button" onclick="changeInstrumentBass()" value="BASS"/>
             <input type="button" onclick="changeInstrumentGuitar()" value="GUITAR"/>
             <input type="button" onclick="changeInstrumentPiano()" value="PIANO"/>
+            <input type="button" onclick="changeInstrumentAll()" value="ALL"/>
         </div>
         <div>
             <input type="button" onclick="play()" value="PLAY"/>
             <input type="button" onclick="autoPlay()" value="AUTO PLAY"/>
             <input type="button" onclick="stop()" value="STOP"/>
+        </div>
+        <div>
+            <input type="button" onclick="match('C')" value="C"/>
+            <input type="button" onclick="match('D')" value="D"/>
+            <input type="button" onclick="match('E')" value="E"/>
+            <input type="button" onclick="match('F')" value="F"/>
+            <input type="button" onclick="match('G')" value="G"/>
+            <input type="button" onclick="match('A')" value="A"/>
+            <input type="button" onclick="match('B')" value="B"/>
+        </div>
+        <div>
+                <span>Score:</span>
+            <span id='score'></span>
         </div>
     </body>
 </html>
