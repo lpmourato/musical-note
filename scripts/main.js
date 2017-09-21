@@ -44,7 +44,7 @@ function playSound(keyNote) {
             console.log(JSON.parse(xhttp.response))
             const response = JSON.parse(xhttp.response);
             sound.src = response.address;
-            currentKey = response.key;
+            console.log(response.address);
             sound.play();
         }
     }
@@ -64,22 +64,28 @@ function stop() {
     clearInterval(loop);
 }
 
-function load() {
+function match(key) {
     let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (xhttp.readyState === 3 && xhttp.status === 200) {
-            console.log(xhttp.response);
+            const response = JSON.parse(xhttp.response);
+            score = response.score;
+            const spanScore = document.getElementById('score');
+            spanScore.textContent = score;
         }
     }
-    xhttp.open("GET", 'http://localhost:5000/load', true)
+    xhttp.open("GET", `http://localhost:5000/match/?userKey=${key}`, true)
     xhttp.send();
 }
 
-function match(key) {
-    const matchKeys = currentKey.replace(/[0-9]/g, '') === key.toLowerCase()
-    if (matchKeys) {
-        const spanScore = document.getElementById('score');
-        spanScore.textContent += 1;
+function switchMode() {
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (xhttp.readyState === 3 && xhttp.status === 200) {
+            const button = document.getElementById('mode');
+            button.value = xhttp.response;
+        }
     }
-    currentKey = '';
+    xhttp.open("GET", 'http://localhost:5000/switch', true)
+    xhttp.send();
 }
