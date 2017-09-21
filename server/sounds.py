@@ -1,27 +1,45 @@
+from flask import jsonify
 from random import Random
 
 SERVER_ADDRESS = 'http://localhost:5000/static/sounds/'
-BASS = 'bass'
-GUITAR = 'guitar'
-PIANO = 'piano'
+INSTRUMENTS = [ 
+    'bass',
+    'guitar',
+    'piano',
+    'all' ]
+
 
 bassArray = []
 guitarArray = []
 pianoArray = []
 currentArray = []
 
-def getKeyNote(instrument):
-    if instrument == BASS:
+def getKeyNote(instrument, keyParam):
+    if instrument == INSTRUMENTS[0]:
         currentArray = bassArray
-    elif instrument == GUITAR:
+    elif instrument == INSTRUMENTS[1]:
         currentArray = guitarArray
-    else:
+    elif instrument == INSTRUMENTS[2]:
         currentArray = pianoArray
-    random = Random()
-    pos = random.randint(0, len(currentArray) - 1)
-    pathKey = SERVER_ADDRESS + instrument + '/' + currentArray[pos]
-    return pathKey
+    else:
+        random = Random()
+        randInstrument = random.randint(0, 3)
+        return getKeyNote(INSTRUMENTS[randInstrument])
+    key = ''
+    if keyParam:
+        key = keyParam
+    else:
+        random = Random()
+        pos = random.randint(0, len(currentArray) - 1)
+        key = currentArray[pos]
 
+    pathKey = SERVER_ADDRESS + instrument + '/' + key
+    data = jsonify(address = pathKey, key = key[:-4])
+    return data
+
+def resp(keyAdress, key):
+    data = { address: keyAdress, key: key}
+    return data
 
 def loadKeyNotes():
     bassArray.append('a0.mp3')
