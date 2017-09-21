@@ -1,4 +1,6 @@
 from flask import jsonify
+import re
+import os
 from random import Random
 
 SERVER_ADDRESS = 'http://localhost:5000/static/sounds/'
@@ -8,13 +10,20 @@ INSTRUMENTS = [
     'piano',
     'all' ]
 
+EASY = 'EASY'
+HARD = 'HARD'
+
 
 bassArray = []
 guitarArray = []
 pianoArray = []
 currentArray = []
+currentKey = ''
+currentMode = EASY
+score = 0;
 
 def getKeyNote(instrument, keyParam):
+    global currentKey
     if instrument == INSTRUMENTS[0]:
         currentArray = bassArray
     elif instrument == INSTRUMENTS[1]:
@@ -33,13 +42,44 @@ def getKeyNote(instrument, keyParam):
         pos = random.randint(0, len(currentArray) - 1)
         key = currentArray[pos]
 
+    # Call getKeyNote if is easy mode and the key get is sharp
+    regex = re.compile(r's')
+    if currentMode == EASY and regex.search(key):
+        return getKeyNote(instrument, keyParam)
+
+    name, ext = os.path.splitext(key)
+    print name + ' ' + ext
+    # TODO: make key note name confuse to the user
     pathKey = SERVER_ADDRESS + instrument + '/' + key
-    data = jsonify(address = pathKey, key = key[:-4])
+    currentKey = re.sub(r'\d+', '', key[:-4])
+    data = jsonify(address = pathKey)
     return data
 
-def resp(keyAdress, key):
-    data = { address: keyAdress, key: key}
-    return data
+def match(userKey):
+    global currentKey
+    global score
+    if currentKey == userKey.lower():
+        score += 1
+    currentKey = ''
+    return jsonify(score= score)
+
+def getMode():
+    global currentMode
+    if currentMode == EASY:
+        currentMode = HARD
+    else:
+        currentMode = EASY
+    return currentMode
+
+def resetData():
+    bassArray = []
+    guitarArray = []
+    pianoArray = []
+    currentArray = []
+    currentKey = ''
+    currentMode = EASY
+    score = 0;
+    loadKeyNotes()
 
 def loadKeyNotes():
     bassArray.append('a0.mp3')
