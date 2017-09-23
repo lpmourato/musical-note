@@ -4,36 +4,41 @@
         <h1>Musical note</h1>
         <meta name="viewport" content="width=device-width, user-scalable=no"/>
     </head>
-    <script src="scripts/main.js"></script>
     <body>
         <audio id="sound" preload="none" controls="none" style="display:none" >
         </audio>
         <div>
-            <input id="mode" type="button" onclick="switchMode()" value="EASY"/>
+            <span>Player number:</span>
+            <span id="playerID"> 0</span>
         </div>
         <div>
-            <input type="button" onclick="changeInstrumentBass()" value="BASS"/>
-            <input type="button" onclick="changeInstrumentGuitar()" value="GUITAR"/>
-            <input type="button" onclick="changeInstrumentPiano()" value="PIANO"/>
-            <input type="button" onclick="changeInstrumentAll()" value="ALL"/>
+            <input id="mode" type="button" value="EASY"/>
         </div>
         <div>
-            <input type="button" onclick="play()" value="PLAY"/>
-            <input type="button" onclick="autoPlay()" value="AUTO PLAY"/>
-            <input type="button" onclick="stop()" value="STOP"/>
+            <input type="button" class="instrument" value="BASS"/>
+            <input type="button" class="instrument" value="GUITAR"/>
+            <input type="button" class="instrument" value="PIANO"/>
+            <input type="button" class="instrument" value="ALL"/>
         </div>
         <div>
-            <input type="button" onclick="match('C')" value="C"/>
-            <input type="button" onclick="match('D')" value="D"/>
-            <input type="button" onclick="match('E')" value="E"/>
-            <input type="button" onclick="match('F')" value="F"/>
-            <input type="button" onclick="match('G')" value="G"/>
-            <input type="button" onclick="match('A')" value="A"/>
-            <input type="button" onclick="match('B')" value="B"/>
+            <input id="play" type="button" value="PLAY"/>
+            <input id="autoPlay" type="button" value="AUTO PLAY"/>
+            <input id="stop" type="button" value="STOP"/>
+        </div>
+        <div>
+            <input type="button" class="key-button" value="C"/>
+            <input type="button" class="key-button" value="D"/>
+            <input type="button" class="key-button" value="E"/>
+            <input type="button" class="key-button" value="F"/>
+            <input type="button" class="key-button" value="G"/>
+            <input type="button" class="key-button" value="A"/>
+            <input type="button" class="key-button" value="B"/>
         </div>
         <div>
                 <span>Score:</span>
-            <span id='score'></span>
+            <span id='score'>0</span>
         </div>
     </body>
+    <script src="scripts/main.js"></script>
+    
 </html>

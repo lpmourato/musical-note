@@ -8,42 +8,33 @@ app = Flask(__name__)
 CORS(app)
 keyParam = ''
 
-def init_app():
-    sounds.resetData()
-
-init_app()
-
 @app.route('/')
 def hello():
     return 'Hello, World!'
 
-@app.route('/bass/')
-def basssound():
-    keyParam = request.args.get('defaultKey')
-    return sounds.getKeyNote('bass', keyParam)
-
-
-@app.route('/guitar/')
-def guitarsound():
-    keyParam = request.args.get('defaultKey')
-    return sounds.getKeyNote('guitar', keyParam)
-
-@app.route('/piano/')
-def pianosound():
-    keyParam = request.args.get('defaultKey')
-    return sounds.getKeyNote('piano', keyParam)
-
-@app.route('/all')
-def allsound():
-    return sounds.getKeyNote('all', 'a2.mp3')
+@app.route('/play/')
+def play():
+    playerID = request.args.get('playerID')
+    mode = request.args.get('mode');
+    instrument = request.args.get('instrument');
+    key = request.args.get('key');
+    return sounds.getKeyNote(encodeStr(playerID), mode, instrument, key)
 
 @app.route('/match/')
 def match():
+    playerID = request.args.get('playerID')
     keyParam = request.args.get('userKey')
-    return sounds.match(keyParam)
+    return sounds.match(encodeStr(playerID), keyParam)
 
-@app.route('/switch')
-def switch():
-    return sounds.getMode()
+@app.route('/reset/')
+def reset():
+    playerID = request.args.get('playerID')
+    player = sounds.resetData(encodeStr(playerID))
+    return player
 
+def encodeStr(value):
+    return value.encode('utf-8')
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
 
