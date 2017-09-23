@@ -41,10 +41,8 @@ function playSound(keyNote) {
     document.body.appendChild(sound);
     xhttp.onreadystatechange = function() {
         if (xhttp.readyState === 3 && xhttp.status === 200) {
-            console.log(JSON.parse(xhttp.response))
             const response = JSON.parse(xhttp.response);
             sound.src = response.address;
-            console.log(response.address);
             sound.play();
         }
     }
