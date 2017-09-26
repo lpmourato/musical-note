@@ -2,28 +2,28 @@ from flask import jsonify
 import re
 import os
 from random import Random
+import socket
+from player import Player
 
-SERVER_ADDRESS = 'http://localhost:5000/static/sounds/'
+
+activePlayers = {}
+SERVER_ADDRESS = 'http://%s:5000/static/sounds/'
 INSTRUMENTS = [ 
     'bass',
     'guitar',
     'piano',
     'all' ]
 
-EASY = 'EASY'
-HARD = 'HARD'
+EASY = 'easy'
+HARD = 'hard'
 
 
 bassArray = []
 guitarArray = []
 pianoArray = []
 currentArray = []
-currentKey = ''
-currentMode = EASY
-score = 0;
 
-def getKeyNote(instrument, keyParam):
-    global currentKey
+def getKeyNote(playerID, mode, instrument, keyParam):
     if instrument == INSTRUMENTS[0]:
         currentArray = bassArray
     elif instrument == INSTRUMENTS[1]:
@@ -33,7 +33,7 @@ def getKeyNote(instrument, keyParam):
     else:
         random = Random()
         randInstrument = random.randint(0, 3)
-        return getKeyNote(INSTRUMENTS[randInstrument])
+        return getKeyNote(mode, INSTRUMENTS[randInstrument], keyParam)
     key = ''
     if keyParam:
         key = keyParam
@@ -43,43 +43,47 @@ def getKeyNote(instrument, keyParam):
         key = currentArray[pos]
 
     # Call getKeyNote if is easy mode and the key get is sharp
-    regex = re.compile(r's')
-    if currentMode == EASY and regex.search(key):
-        return getKeyNote(instrument, keyParam)
+    if mode == EASY and isSharpKey(key):
+        return getKeyNote(playerID, mode, instrument, keyParam)
 
     name, ext = os.path.splitext(key)
     print name + ' ' + ext
     # TODO: make key note name confuse to the user
+    pathKey = getKeyPathAsJson(instrument, key)
+    activePlayer = activePlayers[playerID]
+    activePlayer.setCurrentKey(re.sub(r'\d+', '', key[:-4]))
+    return pathKey
+
+def getKeyPathAsJson(instrument, key):
+    global currentInstrument
     pathKey = SERVER_ADDRESS + instrument + '/' + key
-    currentKey = re.sub(r'\d+', '', key[:-4])
-    data = jsonify(address = pathKey)
-    return data
+    return jsonify(address = pathKey)
 
-def match(userKey):
-    global currentKey
-    global score
-    if currentKey == userKey.lower():
-        score += 1
-    currentKey = ''
-    return jsonify(score= score)
+def isSharpKey(key):
+    regex = re.compile(r's')
+    return regex.search(key);
 
-def getMode():
-    global currentMode
-    if currentMode == EASY:
-        currentMode = HARD
-    else:
-        currentMode = EASY
-    return currentMode
+def match(playerID, userKey):
+    activePlayer = activePlayers[playerID]
+    if activePlayer.getCurrentKey() == userKey.lower():
+        activePlayer.updateScore()
+    activePlayer.setCurrentKey(None)
+    return activePlayer.toJSON()
 
-def resetData():
+def resetData(playerID):
+    global SERVER_ADDRESS
+    host = socket.gethostbyname(socket.getfqdn())
+    SERVER_ADDRESS = 'http://%s:5000/static/sounds/' % (host)
     bassArray = []
     guitarArray = []
     pianoArray = []
     currentArray = []
-    currentKey = ''
-    currentMode = EASY
-    score = 0;
+    playerInstance = Player(playerID)
+    activePlayers[playerID] = playerInstance
+    # playerInstance.resetScore() //TODO it is really necessary?
     loadKeyNotes()
+    return activePlayers[playerID].toJSON();
+    # return playerInstance.toJSON();
 
 def loadKeyNotes():
     bassArray.append('a0.mp3')
