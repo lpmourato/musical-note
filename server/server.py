@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, render_template
 from flask_cors import CORS
 from random import Random
 import os.path
@@ -9,8 +9,8 @@ CORS(app)
 keyParam = ''
 
 @app.route('/')
-def hello():
-    return 'Hello, World!'
+def index():
+    return render_template('index.html')
 
 @app.route('/play/')
 def play():
@@ -36,5 +36,5 @@ def encodeStr(value):
     return value.encode('utf-8')
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0')
+    app.run(host='0.0.0.0', port=5000, threaded=True)
 
