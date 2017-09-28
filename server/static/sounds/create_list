@@ -1,4 +1,0 @@
-
-for entry in `ls piano`; do
-    echo "piano.append('$entry')" >> out.txt
-done
