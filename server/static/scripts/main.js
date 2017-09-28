@@ -68,7 +68,7 @@ MusicalNote.prototype.changeInstrument = function(name) {
         selectedInstrument = inst[pos];
     }
     currentKey = undefined;
-    this.playSound(`${HOST_ADDRESS}/static/sounds/${selectedInstrument}/a2.mp3`);
+    this.playSound(`${HOST_ADDRESS}/static/sounds/${selectedInstrument}/default.mp3`);
 }
 
 MusicalNote.prototype.play = function() {
