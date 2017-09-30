@@ -1,4 +1,6 @@
 from json import dumps, dump, JSONEncoder
+import re
+
 class Player(JSONEncoder):
     __score = 0;
     __playerID = None
@@ -20,12 +22,33 @@ class Player(JSONEncoder):
     def getScore(self):
         return self.__score
 
-    def getCurrentKey(self):
+    def playerKeyNote(self):
         return self.__currentKey
+
+    def getCurrentKey(self):
+        return self.__currentKey.keys()[0]
+
+    def getCurrentKeyValue(self):
+        key = self.__currentKey.keys()[0]
+        return self.__currentKey[key]
+    
+    def isEmptyKey(self):
+        return self.__currentKey is None
 
     def setCurrentKey(self, value):
         self.__currentKey = value
         # self.__currentKey = { key: value, shuffledKey: 'abc'}
+
+    def matchKey(self, userKey):
+        if self.isEmptyKey():
+            return self.toJSON()
+        
+        value = self.getCurrentKeyValue()
+        value = re.sub(r'\d+', '', value)
+        if value == userKey.lower():
+            self.updateScore()
+        self.setCurrentKey(None)
+        return self.toJSON()
 
     def __str__(self):
         encode = self.toJSON()

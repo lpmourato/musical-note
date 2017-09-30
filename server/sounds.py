@@ -5,7 +5,6 @@ from random import Random
 import socket
 from player import Player
 
-
 activePlayers = {}
 SERVER_ADDRESS = 'http://%s:5000/static/sounds/'
 INSTRUMENTS = [ 
@@ -16,7 +15,6 @@ INSTRUMENTS = [
 
 EASY = 'easy'
 HARD = 'hard'
-
 
 bassArray = []
 guitarArray = []
@@ -64,17 +62,7 @@ def isSharpKey(key):
 
 def match(playerID, userKey):
     activePlayer = activePlayers[playerID]
-    playerKeyNote =  activePlayer.getCurrentKey()
-    if playerKeyNote is None:
-        return activePlayer.toJSON()
-    
-    key = playerKeyNote.keys()[0]
-    value = playerKeyNote[key]
-    value = re.sub(r'\d+', '', value)
-    if value == userKey.lower():
-        activePlayer.updateScore()
-    activePlayer.setCurrentKey(None)
-    return activePlayer.toJSON()
+    return activePlayer.matchKey(userKey)
 
 def resetData(playerID):
     global SERVER_ADDRESS
