@@ -3,19 +3,23 @@
 let MusicalNote = function() {};
 
 const HOST_ADDRESS = 'http://localhost:5000';
-const BASS = 'bass';
-const GUITAR = 'guitar';
-const PIANO = 'piano';
-const ALL = 'all';
+const Instruments = {
+    BASS: 'bass',
+    GUITAR: 'guitar',
+    PIANO: 'piano',
+    ALL: 'all',
+}
 const EASY = 'easy';
 const HARD = 'hard';
 
-let currentMode = 'easy';
-let selectedInstrument = 'guitar';
-let soundInterval = null;
-let currentKey = '';
-let score = 0;
-let playerID = '0'; //TODO: use sessionID
+const state = {
+    currentMode: 'easy',
+    selectedInstrument: 'guitar',
+    soundInterval: null,
+    currentKey: '',
+    score: 0,
+    playerID: '0',  //TODO: use sessionID
+}
 
 MusicalNote.prototype.init = function() {
     console.log('init');
@@ -23,20 +27,16 @@ MusicalNote.prototype.init = function() {
     musicalNote.createEvents('instrument', 'changeInstrument');
     musicalNote.createEvents('key-button', 'match');
 
-    const btnPlay = document.getElementById('play');
-    btnPlay.addEventListener('click', function() {
+    document.getElementById('play').addEventListener('click', function() {
         musicalNote.play();
     });
-    const btnAutoPlay = document.getElementById('autoPlay');
-    btnAutoPlay.addEventListener('click', function() {
+    document.getElementById('autoPlay').addEventListener('click', function() {
         musicalNote.autoPlay();
     });
-    const btnStop = document.getElementById('stop');
-    btnStop.addEventListener('click', function() {
+    document.getElementById('stop').addEventListener('click', function() {
         musicalNote.stop();
     });
-    const btnMode = document.getElementById('mode');
-    btnMode.addEventListener('click', function() {
+    document.getElementById('mode').addEventListener('click', function() {
         musicalNote.switchMode();
     });
 }
@@ -61,28 +61,28 @@ MusicalNote.prototype.createEvents = function(classes, method) {
 }
 
 MusicalNote.prototype.changeInstrument = function(name) {
-    selectedInstrument = name.toLowerCase();
-    if (name.toLowerCase() === ALL) {
+    state.selectedInstrument = name.toLowerCase();
+    if (name.toLowerCase() === Instruments.ALL) {
         const pos = parseInt(Math.random() * (3 - 0) + 0);
-        const inst = [BASS, GUITAR, PIANO];
-        selectedInstrument = inst[pos];
+        const inst = Object.values(Instruments);
+        state.selectedInstrument = inst[pos];
     }
-    currentKey = undefined;
-    this.playSound(`${HOST_ADDRESS}/static/sounds/${selectedInstrument}/default.mp3`);
+    state.currentKey = undefined;
+    this.playSound(`${HOST_ADDRESS}/static/sounds/${state.selectedInstrument}/default.mp3`);
 }
 
 MusicalNote.prototype.play = function() {
     if (this.isEasyMode()) {
         return
     }
-    let address = `${HOST_ADDRESS}/play?playerID=${playerID}&mode=${currentMode}&instrument=${selectedInstrument}`;
+    let address = `${HOST_ADDRESS}/play?playerID=${state.playerID}&mode=${state.currentMode}&instrument=${state.selectedInstrument}`;
     const request = musicalNote.requestHeaders(address);
     fetch(request).then(function(response) {
         if(response.ok && response.status === 200) {
             response.json().then(keyNote => {
                 console.log(keyNote);
-                currentKey = keyNote.address;
-                musicalNote.playSound(currentKey);
+                state.currentKey = keyNote.address;
+                musicalNote.playSound(state.currentKey);
             });
         }
       }).catch(function(error) {
@@ -92,14 +92,14 @@ MusicalNote.prototype.play = function() {
 
 MusicalNote.prototype.playSound = function(key) {
     let sound = document.getElementById('sound');
-    sound.src = key || currentKey;
+    sound.src = key || state.currentKey;
     console.log(sound.src);
     sound.play();
 }
 
 MusicalNote.prototype.isEasyMode = function() {
-    if (currentKey && sound.src && currentMode === EASY) {
-        musicalNote.playSound(currentKey);
+    if (state.currentKey && sound.src && state.currentMode === EASY) {
+        musicalNote.playSound(state.currentKey);
         return true;
     }
     return false;
@@ -107,18 +107,18 @@ MusicalNote.prototype.isEasyMode = function() {
 
 MusicalNote.prototype.autoPlay = function() {
     musicalNote.play();
-    soundInterval = setInterval(function(){
+    state.soundInterval = setInterval(function(){
         musicalNote.play();
     }, 2500);
 }
 
 MusicalNote.prototype.stop = function() {
-    clearInterval(soundInterval);
+    clearInterval(state.soundInterval);
 }
 
 MusicalNote.prototype.reset = function() {
-    playerID = parseInt(Math.random() * (1000 - 0) + 0)
-    const request = musicalNote.requestHeaders(`${HOST_ADDRESS}/reset?playerID=${playerID}`);
+    state.playerID = parseInt(Math.random() * (1000 - 0) + 0)
+    const request = musicalNote.requestHeaders(`${HOST_ADDRESS}/reset?playerID=${state.playerID}`);
     fetch(request).then(function(response) {
         if(response.ok && response.status === 200) {
             response.json().then(player => {
@@ -133,15 +133,15 @@ MusicalNote.prototype.reset = function() {
 }
 
 MusicalNote.prototype.match = function(key) {
-    currentKey = undefined;
-    const request = musicalNote.requestHeaders(`${HOST_ADDRESS}/match?playerID=${playerID}&userKey=${key}`);
+    state.currentKey = undefined;
+    const request = musicalNote.requestHeaders(`${HOST_ADDRESS}/match?playerID=${state.playerID}&userKey=${key}`);
     fetch(request).then(function(response) {
         if(response.ok && response.status === 200) {
             response.json().then(player => {
                 console.log(player);
-                score = player._Player__score;
+                state.score = player._Player__score;
                 const spanScore = document.getElementById('score');
-                spanScore.textContent = score;
+                spanScore.textContent = state.score;
             });
         }
       }).catch(function(error) {
@@ -150,8 +150,8 @@ MusicalNote.prototype.match = function(key) {
 }
 
 MusicalNote.prototype.switchMode = function() {
-    currentMode = currentMode === EASY ? HARD : EASY;
-    document.getElementById('mode').value = currentMode.toUpperCase();
+    state.currentMode = state.currentMode === EASY ? HARD : EASY;
+    document.getElementById('mode').value = state.currentMode.toUpperCase();
 }
 
 MusicalNote.prototype.requestHeaders = function(url) {
