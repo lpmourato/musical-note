@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <h1>Musical note</h1>
+        <meta name="viewport" content="width=device-width, user-scalable=no"/>
+    </head>
+    <link rel="stylesheet" type="text/css" href="static/styles/main.css"/>
+    
+    <body>
+        <audio id="sound" preload="none" controls="none" style="display:none" >
+        </audio>
+        <div class="user-info">
+            <div>
+                <span>Player number:</span>
+                <span id="playerID"> 0</span>
+            </div>
+            <div>
+                <span>Player score:</span>
+                <span id="playerScore"> 0</span>
+            </div>
+        </div>
+        <div class="instruments-session">
+            <input type="button" class="button-instrument" value="BASS"/>
+            <input type="button" class="button-instrument" value="GUITAR"/>
+            <input type="button" class="button-instrument" value="PIANO"/>
+            <input type="button" class="button-instrument" value="ALL"/>
+        </div>
+        <div class="intrument-container">
+            <img class="intrument-img" src="static/img/bg_guitar_pressed.png" />
+        </div>
+        <div class="keys-session instruments-session">
+            <input type="button" class="key-button" value="C"/>
+            <input type="button" class="key-button" value="D"/>
+            <input type="button" class="key-button" value="E"/>
+            <input type="button" class="key-button" value="F"/>
+            <input type="button" class="key-button" value="G"/>
+            <input type="button" class="key-button" value="A"/>
+            <input type="button" class="key-button" value="B"/>
+        </div>
+        <div>
+            <input id="mode" type="button" value="EASY"/>
+        </div>
+        <div>
+            <input id="play" type="button" value="PLAY"/>
+            <input id="autoPlay" type="button" value="AUTO PLAY"/>
+            <input id="stop" type="button" value="STOP"/>
+        </div>
+    </body>
+    <script src="http://0.0.0.0:5000/static/scripts/main.js"></script>
+    
+</html>

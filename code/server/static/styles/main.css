@@ -1,0 +1,56 @@
+head {
+    background: #0971B2;
+}
+h1 {
+    text-align: center;
+    background: #7095CC; /* #1485CC;*/
+    padding: 20px;
+    color: white;
+}
+body {
+    
+}
+
+.user-info {
+    display: flex;
+    justify-content: space-between;
+    align-content: stretch;
+}
+.instruments-session {
+    display: flex;
+    justify-content: space-between;
+    background: #A5DBFF;
+}
+
+.button-instrument {
+    width: 250px;
+    height: 40px;
+    margin: 10px;
+}
+
+.intrument-container {
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.intrument-img {
+    max-width: 280px;
+}
+
+.keys-session {
+    flex-wrap: wrap;
+    justify-content: space-between
+}
+
+.key-button {
+    /*background: red;*/
+    width: 60px;
+    height: 60px;
+    margin: 10px;
+}
+
+
+button {
+    height: 100px
+}
