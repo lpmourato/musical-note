@@ -29,8 +29,9 @@ class Player(JSONEncoder):
         return self.__currentKey.keys()[0]
 
     def getCurrentKeyValue(self):
-        key = self.__currentKey.keys()[0]
-        return self.__currentKey[key]
+        if len(self.__currentKey) > 0:
+            return self.__currentKey[key]
+        return "nokey"
     
     def isEmptyKey(self):
         return self.__currentKey is None

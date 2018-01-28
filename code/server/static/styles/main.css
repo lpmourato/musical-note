@@ -4,49 +4,180 @@ head {
 h1 {
     text-align: center;
     background: #7095CC; /* #1485CC;*/
-    padding: 20px;
+    padding: 5px;
     color: white;
 }
-body {
-    
+
+.body-app {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
 }
 
+.sidenav {
+    max-width: 200px;
+    background: #7095CC;
+    padding-top: 20px;
+}
+
+.container {
+    display: inherit;
+    flex-flow: column;
+    background:  #0971B2;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+}
 .user-info {
     display: flex;
     justify-content: space-between;
     align-content: stretch;
 }
-.instruments-session {
-    display: flex;
+
+.controls {
+    display: inherit;
     justify-content: space-between;
-    background: #A5DBFF;
 }
 
-.button-instrument {
-    width: 250px;
-    height: 40px;
+.button-sidenav {
+    width: 180px;
+    height: 45px;
     margin: 10px;
+    background: lightblue;
 }
 
-.intrument-container {
-    padding: 50px;
+.button-control {
+    width: 120px;
+    height: 45px;
+    margin: 10px;
+    background: lightblue;
+}
+
+.key-button {
+    background: lightblue;
+    margin-top: 8px;
+    width: 40px;
+    height: 40px;
+}
+
+.sharp-key-button {
+    
+}
+
+.keys-session {
+    display: inherit;
+    /* background: red; */
+    justify-content: space-around;
+}
+
+.sharp-keys {
+    display: inherit;
+    justify-content: space-around;
+    /* background: red; */
+    padding-left: 20px;
+}
+
+.img-containter {
     display: flex;
+    flex: 0%;
     justify-content: center;
 }
 
 .intrument-img {
-    max-width: 280px;
+    display: block;
+}
+
+@media screen and (max-width: 1024px) {
+    .button-control {
+        width: 100px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .button-control {
+        width: 80px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .button-control {
+        width: 40px;
+    }
+}
+
+/* 
+.containter {
+    
+}
+.user-info {
+    display: flex;
+    justify-content: space-between;
+    align-content: stretch;
+}
+.intrument-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.instruments-session {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background: #A5DBFF;
+    width: 80px;
+}
+
+.button-default {
+    width: 60px;
+    height: 50px;
+    margin: 10px;
+}
+
+.img-containter {
+    display: flex;
+    flex: 0%;
+    justify-content: center;
+}
+
+.intrument-img {
+    
+    display: block;
+}
+
+@media screen and (min-width: 1280px) {
+    .intrument-img {
+        width: 280px;
+    }
+}
+@media screen and (min-width: 1024px) {
+    .intrument-img {
+        width: 280px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .intrument-img {
+        width: 280px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .intrument-img {
+        width: 130px;
+        height: auto;
+    }
 }
 
 .keys-session {
+    width: 100%;
     flex-wrap: wrap;
     justify-content: space-between
 }
 
 .key-button {
-    /*background: red;*/
-    width: 60px;
-    height: 60px;
+    
+    width: 30px;
+    height: 30px;
     margin: 10px;
 }
 
@@ -54,3 +185,4 @@ body {
 button {
     height: 100px
 }
+ */
