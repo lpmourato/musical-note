@@ -6,7 +6,7 @@
     </head>
     <link rel="stylesheet" type="text/css" href="static/styles/main.css"/>
     
-    <body>
+    <body >
         <audio id="sound" preload="none" controls="none" style="display:none" >
         </audio>
         <div class="user-info">
@@ -19,32 +19,80 @@
                 <span id="playerScore"> 0</span>
             </div>
         </div>
-        <div class="instruments-session">
-            <input type="button" class="button-instrument" value="BASS"/>
-            <input type="button" class="button-instrument" value="GUITAR"/>
-            <input type="button" class="button-instrument" value="PIANO"/>
-            <input type="button" class="button-instrument" value="ALL"/>
+        <div class="body-app">
+            <div class="sidenav">
+                <input type="button" class="button-sidenav" value="BASS"/>
+                <input type="button" class="button-sidenav" value="GUITAR"/>
+                <input type="button" class="button-sidenav" value="PIANO"/>
+                <input type="button" class="button-sidenav" value="ALL"/>
+            </div>
+            <div class="container">
+                <div class="controls">
+                    <input id="mode" class="button-control button-class" type="button" value="EASY"/>
+                    <input id="play" class="button-control button-class" type="button" value="PLAY"/>
+                    <input id="autoPlay" class="button-control button-class" type="button" value="AUTO PLAY"/>
+                    <input id="stop" class="button-control button-class" type="button" value="STOP"/>
+                </div>
+                <div class="img-containter">
+                    <img class="intrument-img" onClick="MusicalNote.prototype.play()" src="static/img/bg_guitar_pressed.png" />
+                </div>
+                <div class="keys-session">
+                    <input type="button" class="key-button" value="C"/>
+                    <input type="button" class="key-button" value="D"/>
+                    <input type="button" class="key-button" value="E"/>
+                    <input type="button" class="key-button" value="F"/>
+                    <input type="button" class="key-button" value="G"/>
+                    <input type="button" class="key-button" value="A"/>
+                    <input type="button" class="key-button" value="B"/>
+                </div>
+                <div class="sharp-keys">
+                    <input type="button" class="key-button sharp-key-button" value="C#"/>
+                    <input type="button" class="key-button sharp-key-button" value="D#"/>
+                    <input type="button" class="key-button sharp-key-button" value="F#"/>
+                    <input type="button" class="key-button sharp-key-button" value="G#"/>
+                    <input type="button" class="key-button sharp-key-button" value="A#"/>
+                </div>
+            </div>
         </div>
-        <div class="intrument-container">
-            <img class="intrument-img" src="static/img/bg_guitar_pressed.png" />
-        </div>
-        <div class="keys-session instruments-session">
-            <input type="button" class="key-button" value="C"/>
-            <input type="button" class="key-button" value="D"/>
-            <input type="button" class="key-button" value="E"/>
-            <input type="button" class="key-button" value="F"/>
-            <input type="button" class="key-button" value="G"/>
-            <input type="button" class="key-button" value="A"/>
-            <input type="button" class="key-button" value="B"/>
-        </div>
-        <div>
-            <input id="mode" type="button" value="EASY"/>
-        </div>
-        <div>
-            <input id="play" type="button" value="PLAY"/>
-            <input id="autoPlay" type="button" value="AUTO PLAY"/>
-            <input id="stop" type="button" value="STOP"/>
-        </div>
+        <!-- <div class="containter">
+            <div class="user-info">
+                <div>
+                    <span>Player number:</span>
+                    <span id="playerID"> 0</span>
+                </div>
+                <div>
+                    <span>Player score:</span>
+                    <span id="playerScore"> 0</span>
+                </div>
+            </div>
+            
+            <div class="intrument-container">
+                <div class="instruments-session">
+                    <input type="button" class="button-default" value="BASS"/>
+                    <input type="button" class="button-default" value="GUITAR"/>
+                    <input type="button" class="button-default" value="PIANO"/>
+                    <input type="button" class="button-default" value="ALL"/>
+                </div>
+                <div class="img-containter">
+                        <img class="intrument-img" src="static/img/bg_guitar_pressed.png" />
+                </div>
+                <div class="control-buttons instruments-session">
+                    <input id="mode" class="button-default" type="button" value="EASY"/>
+                    <input id="play" class="button-default" type="button" value="PLAY"/>
+                    <input id="autoPlay" class="button-default" type="button" value="AUTO PLAY"/>
+                    <input id="stop" class="button-default" type="button" value="STOP"/>
+                </div>
+            </div>
+            <div class="keys-session instruments-session">
+                <input type="button" class="key-button" value="C"/>
+                <input type="button" class="key-button" value="D"/>
+                <input type="button" class="key-button" value="E"/>
+                <input type="button" class="key-button" value="F"/>
+                <input type="button" class="key-button" value="G"/>
+                <input type="button" class="key-button" value="A"/>
+                <input type="button" class="key-button" value="B"/>
+            </div>
+        </div> -->
     </body>
     <script src="http://0.0.0.0:5000/static/scripts/main.js"></script>
     

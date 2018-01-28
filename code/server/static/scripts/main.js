@@ -24,7 +24,7 @@ const state = {
 MusicalNote.prototype.init = function() {
     console.log('init');
     musicalNote.reset();
-    musicalNote.createEvents('instrument', 'changeInstrument');
+    musicalNote.createEvents('button-sidenav', 'changeInstrument');
     musicalNote.createEvents('key-button', 'match');
 
     document.getElementById('play').addEventListener('click', function() {

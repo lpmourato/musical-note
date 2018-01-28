@@ -26,7 +26,7 @@ def main_route():
 
 @app.route('/play/')
 def play():
-    playerID = request.args.get('playerID')
+    playerID = getPlayerID(request)
     mode = request.args.get('mode');
     instrument = request.args.get('instrument');
     key = request.args.get('key');
@@ -34,15 +34,18 @@ def play():
 
 @app.route('/match/')
 def match():
-    playerID = request.args.get('playerID')
+    playerID = getPlayerID(request)
     keyParam = request.args.get('userKey')
     return sounds.match(encodeStr(playerID), keyParam)
 
 @app.route('/reset/')
 def reset():
-    playerID = request.args.get('playerID')
+    playerID = getPlayerID(request)
     player = sounds.resetData(encodeStr(playerID))
     return player
+
+def getPlayerID(request):
+    return request.args.get('playerID') or "-1"
 
 def encodeStr(value):
     return value.encode('utf-8')
