@@ -1,28 +1,28 @@
 FROM ubuntu:14.04
-FROM python:2.7
-# Create image based on the official Node 6 image from dockerhub
-FROM node:6
+
 RUN apt-get update && \
-      apt-get -y install sudo
-# Create a directory where our app will be placed
+      apt-get -y install curl  software-properties-common wget build-essential checkinstall libreadline-gplv2-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev
+
 ADD . /code
 WORKDIR /code
-RUN sudo apt-get install -y python3-setuptools
-RUN sudo easy_install3 pip
-#RUN sudo easy_install pip
+
+# Installing python 2.7
+RUN apt-add-repository ppa:fkrull/deadsnakes-python2.7
+RUN apt-get update
+RUN apt-get install -y --force-yes python2.7 python-setuptools python2.7-dev
+RUN easy_install pip
+# Install python dependencies
 RUN pip install -r requirements.txt
 
-RUN mkdir -p /code/client/app
-# Change directory so that our commands run inside this new directory
-WORKDIR /code/client
-# Copy dependency definitions
-COPY package.json /code/client/app
-# Install dependecies
+# Installing node 
+RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash 
+RUN apt-get install nodejs
+WORKDIR /client
 RUN npm install
-# Get all the code needed to run the app
-COPY . /code/client/app
-# Expose the port the app runs in
+
 EXPOSE 4200
-# Serve the app
+EXPOSE 5000
+
+WORKDIR /code
 CMD python ./code/server/app.py
-CMD ["npm", "start"]
+#CMD ["npm", "start"]
