@@ -18,14 +18,17 @@ RUN pip install redis
 RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash 
 RUN apt-get install nodejs
 
+RUN npm install --global @angular/cli
+
 VOLUME /code
-WORKDIR /code/client
-COPY package.json /code/client
-RUN npm install
-WORKDIR ../server
+
+WORKDIR /code
+
 RUN pwd
+
 EXPOSE 4200
 EXPOSE 5000
 
-#CMD python app.py
-#CMD ["npm", "start"]
+COPY entry-point.sh /usr/local/bin
+RUN chmod 755 /usr/local/bin/entry-point.sh
+ENTRYPOINT ["entry-point.sh"]
