@@ -19,11 +19,11 @@ RUN curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash
 RUN apt-get install nodejs
 
 VOLUME /code
-
 WORKDIR /code/client
+COPY package.json /code/client
 RUN npm install
-WORKDIR /code/server
-
+WORKDIR ../server
+RUN pwd
 EXPOSE 4200
 EXPOSE 5000
 
