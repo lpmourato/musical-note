@@ -1,0 +1,16 @@
+@import '~theme.scss';
+
+.container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+h1 {
+    width: 100%;
+    align-self: auto;
+}
+
+.footer {
+    align-self: center;
+}

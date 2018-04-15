@@ -1,24 +1,84 @@
 @import '../../theme.scss';
 
 .dashboard {
-    display: inherit;
-    flex-flow: column;
-    background:  $main-bg;
-    width: 100%;
-    height: 100%;
-    padding: 20px;
+    display: flex;
+    flex-flow: row;
+    background:  $midnight-blue;
+    height: 440px;
 }
 
+.painel {
+    margin: 10px;
+}
+
+.instrument {
+    // display: flex;
+    // flex-flow: column;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-instrument {
+    display: block;
+    margin: 50px;
+    width: 250px;
+    height: 250px;
+}
+
+.horizontal { display: inline }
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    align-content: space-between;
+    flex-flow: row;
+    align-items: stretch;
+
+}
+
+.button-control {
+    width: 120px;
+    height: 45px;
+    margin: 10px;
+    background: lightblue;
+}
+
+.img-play {
+    width: 250px;
+    height: 250px;
+    cursor: pointer;
+}
+
+.img-containter {
+    display: flex;
+    flex: 0%;
+    justify-content: center;
+    margin: 20px;
+}
 
 .keys-session {
-    // display: inherit;
-    /* background: red; */
-    // justify-content: space-around;
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+    margin-top: 10px;
+}
+
+.keys-session-sharp {
+    @extend .keys-session;
+    margin-top: 5px;
+}
+.button-control {
+    width: 45px;
+    height: 45px;
+    background: lightblue;
 }
 
 .key-button {
-    // background: lightblue;
+    display: inline;
     margin-top: 8px;
     width: 40px;
     height: 40px;
 }
+

@@ -1,10 +1,18 @@
 //@import url('theme.scss');
 @import '../../theme.scss';
+
 .side-nav {
+    display: flex;
+    flex-flow: column;
     width: 200px;
     max-width: 200px;
-    background: #7095CC;
-    padding-top: 20px;
+    height: 100%;
+    background: $midnight-blue;
+}
+
+.user-info {
+    background: $green;
+    margin: 10px;
 }
 
 .button-sidenav {
@@ -12,6 +20,6 @@
     height: 45px;
     margin: 10px;
     color: $iron;
-    background: $midnight-blue;
+    background: $site-bg;
 
 }
