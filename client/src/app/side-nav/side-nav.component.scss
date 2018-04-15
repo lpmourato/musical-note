@@ -1,0 +1,17 @@
+//@import url('theme.scss');
+@import '../../theme.scss';
+.side-nav {
+    width: 200px;
+    max-width: 200px;
+    background: #7095CC;
+    padding-top: 20px;
+}
+
+.button-sidenav {
+    width: 180px;
+    height: 45px;
+    margin: 10px;
+    color: $iron;
+    background: $midnight-blue;
+
+}
