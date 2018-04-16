@@ -1,28 +1,30 @@
 <div class="dashboard">
-  <div class="controls">
-      <button id="mode" class="button-control button-class" value="EASY"></button>
-      <button id="play" class="button-control button-class" value="PLAY"></button>
-      <button id="autoPlay" class="button-control button-class" value="AUTO PLAY"></button>
-      <button id="stop" class="button-control button-class" value="STOP"></button>
-  </div>
-  <div class="img-containter">
-    <mat-icon>face</mat-icon>
+    <div class="instrument">
+        <img class="img-instrument" src="../assets/img/bg_guitar_pressed.png"/>
+    </div>
+    <div class="painel">
+        <div class="controls">
+            <mat-button-toggle-group class="controls">
+                <mat-button-toggle value="EASY" [checked]="isEasyMode" (change)="switchMode($event)">EASY</mat-button-toggle>
+                <mat-button-toggle value="HARD" [checked]="!isEasyMode" (change)="switchMode($event)">HARD</mat-button-toggle>
+            </mat-button-toggle-group>
+            <mat-button-toggle [checked]="isAutoPlay" (change)="autoPlay($event)">AUTO PLAY</mat-button-toggle>
+            <button mat-button (click)="stop($event)">STOP</button>
+        </div>
     
-  </div>
-  <div class="keys-session">
-      <button mat-mini-fab class="key-button" value="C">C</button>
-      <button mat-mini-fab class="key-button" value="D">D</button>
-      <button mat-mini-fab class="key-button" value="E">E</button>
-      <button mat-mini-fab class="key-button" value="F">F</button>
-      <button mat-mini-fab class="key-button" value="G">G</button>
-      <button mat-mini-fab class="key-button" value="A">A</button>
-      <button mat-mini-fab class="key-button" value="B">B</button>
-  </div>
-  <div class="sharp-keys">
-      <button mat-mini-fab class="key-button sharp-key-button" value="C#">C#</button>
-      <button mat-mini-fab class="key-button sharp-key-button" value="D#">D#</button>
-      <button mat-mini-fab class="key-button sharp-key-button" value="F#">F#</button>
-      <button mat-mini-fab class="key-button sharp-key-button" value="G#">G#</button>
-      <button mat-mini-fab class="key-button sharp-key-button" value="A#">A#</button>
-  </div>
+        <div class="img-containter">
+            <img class="img-play" (click)="play($event)" src="../assets/img/play.png"/>
+        </div>
+        <div class="keys-session">
+            <li class="horizontal" *ngFor="let button of KEYS">
+            <button mat-mini-fab (click)="match(button.name)">{{button.name}}</button>
+            </li>
+        </div>
+        <div class="keys-session-sharp" *ngIf="!isEasyMode">
+            <li class="horizontal" *ngFor="let button of SHARP_KEYS">
+                <button mat-mini-fab (click)="match(button.name)">{{button.name}}</button>
+            </li>
+        </div>
+    </div>
+    
 </div>
