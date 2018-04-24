@@ -1,11 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, OnChanges {
+
+  @Input() instrument = 'GUITAR';
 
   mode = 'EASY';
   isEasyMode = true;
@@ -31,6 +33,10 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   }
 
+  ngOnChanges() {
+    console.log(this.instrument);
+  }
+
   match(keyName): void {
     console.log(keyName);
   }
@@ -52,5 +58,9 @@ export class DashboardComponent implements OnInit {
   stop(): void {
     this.isAutoPlay = false;
     console.log('stop');
+  }
+
+  changeInstrument(event): void {
+    console.log(event);
   }
 }

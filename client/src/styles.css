@@ -1,10 +1,10 @@
 @import '~@angular/material/prebuilt-themes/pink-bluegrey.css';
 
 .app-site {
-    display: flex;
+    /* display: flex; */
     flex-flow: column;
     align-items: center;
     justify-content: center;
-    background: #7095CC;
+    background: #5f256e; /*rgb(175, 142, 207); /*#7095CC;*/ 
     height: 100%;
 }

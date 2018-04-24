@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-side-nav',
@@ -7,9 +7,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SideNavComponent implements OnInit {
 
+  @Output() onInstrumentChange: EventEmitter<string> = new EventEmitter<string>();
+
+  INSTRUMENTS : any[] = [
+    { name: 'BASS'},{ name: 'GUITAR'},
+    { name: 'PIANO'},{ name: 'ALL'},
+  ];
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  switchInstrument(instrument): void {
+    console.log(instrument);
+    // this.onInstrumentChange.emit(instrument);
   }
 
 }
