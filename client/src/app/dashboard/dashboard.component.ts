@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { ActivatedRoute, ParamMap, Router, NavigationEnd, ActivationEnd } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,7 +9,7 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 })
 export class DashboardComponent implements OnInit, OnChanges {
 
-  @Input() instrument = 'GUITAR';
+  instrument = 'guitar';
 
   mode = 'EASY';
   isEasyMode = true;
@@ -28,13 +30,18 @@ export class DashboardComponent implements OnInit, OnChanges {
     { name: 'EASY'},{ name: 'HARD'},{ name: 'AUTO PLAY'}, { name: 'STOP'}
   ];
 
-  constructor() { }
+  constructor(private router: Router,
+              private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.activeRoute.url.subscribe(value => {
+      this.instrument = value[1].path;
+      console.log('AQUI ', this.instrument);
+    });
   }
 
   ngOnChanges() {
-    console.log(this.instrument);
+    
   }
 
   match(keyName): void {
@@ -43,7 +50,6 @@ export class DashboardComponent implements OnInit, OnChanges {
 
   switchMode(event): void {
     this.isEasyMode = event.value === 'EASY';
-    console.log(event);
   }
 
   autoPlay(): void {
