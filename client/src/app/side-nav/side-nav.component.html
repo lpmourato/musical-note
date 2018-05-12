@@ -1,58 +1,13 @@
 <div class="side-nav">
     <div class="app-content">
       <nav class="instrument-session">
-        <button mat-button class="button-sidenav">
-            <a routerLink="/dashboard/bass">BASS</a>
-        </button>
-        <button mat-button class="button-sidenav">
-            <a routerLink="/dashboard/guitar">GUITAR</a>
-        </button>
-        <button mat-button class="button-sidenav">
-            <a routerLink="/dashboard/piano">PIANO</a>
-        </button>
-        <button mat-button class="button-sidenav">
-            <a routerLink="/dashboard/all">ALL</a>
+        <button mat-button class="button-sidenav" 
+        *ngFor="let button of INSTRUMENTS"
+        (click)="changeRoute(button.name.toLowerCase())" >
+            <img class="" src="{{button.img}}"/>
         </button>
       </nav>
       <router-outlet class="sidenav-content"></router-outlet>
   </div>  
 </div>
 
-<!-- <div class="side-nav">
-  <div class="user-info">
-    <div>
-        <span>Player number:</span>
-        <span id="playerID"> 0</span>
-    </div>
-    <div>
-        <span>Player score:</span>
-        <span id="playerScore"> 0</span>
-    </div>
-  </div>
-  <div class="instrument-session">
-      <nav>
-          <a routerLink="/dashboard/bass">BASS</a>
-          <a routerLink="/dashboard/guitar">GUITAR</a>
-          <a routerLink="/dashboard/paino">PIANO</a>
-          <a routerLink="/dashboard/all">ALL</a>
-      </nav>
-      <router-outlet></router-outlet>
-  </div>
-  
-</div> -->
-
-<!-- 
-  <div class="side-nav">
-    <div>
-      <nav class="instrument-session">
-          <a routerLink="/dashboard/bass">BASS</a>
-          <a routerLink="/dashboard/guitar">GUITAR</a>
-          <a routerLink="/dashboard/paino">PIANO</a>
-          <a routerLink="/dashboard/all">ALL</a>
-      </nav>
-      <router-outlet></router-outlet>
-    </div>  
-    <mat-sidenav #sidenav >
-      <app-dashboard ></app-dashboard>  
-    </mat-sidenav>
-  </div> -->
