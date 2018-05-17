@@ -14,12 +14,14 @@
 .instrument {
     display: flex;
     align-items: center;
+    margin: 50px;
+    width: 200px;
 }
 
 .img-instrument {
-    width: 150px;
-    height: 150px;
-    margin: 50px;
+    // width: 150px;
+    // height: 150px;
+    // margin: 50px;
 }
 
 .horizontal { display: inline }
@@ -77,3 +79,11 @@
     height: 40px;
 }
 
+.key-note-result {
+    display:block;
+    margin: -12px 10px 0 0;
+    float:left;
+    color:rgb(198, 233, 101);
+    font-size:80px;
+    font-family:Verdana;
+}
